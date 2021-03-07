@@ -1500,10 +1500,11 @@ class Backend:
         argv = self.commandline.split()
         argv[0] = which(argv[0])
         for i in range(len(argv)):
-            if argv[i] == '{file}':
-                argv[i] = entry.pathname
-            if argv[i] == '{offset}':
-                argv[i] = str(offset * self.fps)
+            argv[i] = argv[i].format(file=entry.pathname, offset=offset * self.fps)
+            # if argv[i] == '{file}':
+            #     argv[i] = entry.pathname
+            # if argv[i] == '{offset}':
+            #     argv[i] = str(offset * self.fps)
 
         if entry != self.entry:
             self.entry = entry
@@ -2103,7 +2104,7 @@ def main():
 
 MIXERS = [PulseMixer, AlsaMixer, OssMixer]
 BACKENDS = [
-    MPV('mpv --audio-display=no --start {offset} {file}',
+    MPV('mpv --audio-display=no --start={offset} {file}',
         r'^https?://|\.(mp[1234]|ogg|oga|opus|flac|spx|mp[cp+]|mod|xm|fm|s3m|'
         r'med|col|669|it|mtm|stm|aiff|au|cdr|wav|wma|m4a|m4b|webm)$'),
     FrameOffsetBackend('ogg123 -q -v -k {offset} {file}', r'\.ogg$'),
