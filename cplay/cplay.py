@@ -2103,6 +2103,9 @@ def main():
 
 MIXERS = [PulseMixer, AlsaMixer, OssMixer]
 BACKENDS = [
+    MPV('mpv --audio-display=no --start {offset} {file}',
+        r'^https?://|\.(mp[1234]|ogg|oga|opus|flac|spx|mp[cp+]|mod|xm|fm|s3m|'
+        r'med|col|669|it|mtm|stm|aiff|au|cdr|wav|wma|m4a|m4b|webm)$'),
     FrameOffsetBackend('ogg123 -q -v -k {offset} {file}', r'\.ogg$'),
     FrameOffsetBackend(
         'splay -f -k {offset} {file}', r'(^https?://|\.mp[123]$)', 38.28),
@@ -2117,9 +2120,6 @@ BACKENDS = [
         r'\.mp[123]$'),
     MPlayer(
         'mplayer -ss {offset} {file}',
-        r'^https?://|\.(mp[1234]|ogg|oga|opus|flac|spx|mp[cp+]|mod|xm|fm|s3m|'
-        r'med|col|669|it|mtm|stm|aiff|au|cdr|wav|wma|m4a|m4b|webm)$'),
-    MPV('mpv --audio-display=no --start {offset} {file}',
         r'^https?://|\.(mp[1234]|ogg|oga|opus|flac|spx|mp[cp+]|mod|xm|fm|s3m|'
         r'med|col|669|it|mtm|stm|aiff|au|cdr|wav|wma|m4a|m4b|webm)$'),
     GSTBackend(
